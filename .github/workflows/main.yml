@@ -30,7 +30,7 @@ jobs:
 
     # changes the base-tag in index.html from '/' to 'GhTestApp' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to AnnoyingTextApp
-      run: sed -i 's/<base href="\/" \/>/<base href="\/GhTestApp\/" \/>/g' release/wwwroot/index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/AnnoyingTextApp\/" \/>/g' release/wwwroot/index.html
       
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
