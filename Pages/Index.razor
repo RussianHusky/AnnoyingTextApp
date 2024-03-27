@@ -1,0 +1,75 @@
+﻿@page "/"
+@using System.Security.Cryptography.X509Certificates
+
+<style>
+    table, th, td {
+      border: 1px solid;
+    }
+</style>
+
+<PageTitle>Funny text generator</PageTitle>
+
+<h1>Funny text generator</h1>
+
+<EditForm Model="model">
+    <InputText @bind-Value="model" id="personName" @ref="_inputText"></InputText>
+</EditForm>
+
+<table class="table">
+        @foreach (var forecast in changed)
+        {
+            <tr>
+                
+                <th>
+                    @forecast
+                </th>
+            </tr>
+        }
+    </table>
+
+<button class="btn btn-primary" @onclick="Funny">Submit</button>
+
+@code {
+
+    private List<string> changed = new List<string>();
+
+    string model = "";
+    InputText _inputText;
+    
+    private void Funny()
+    {
+        
+        
+        var input = _inputText.Value.ToString().Split(' ');
+
+        for (int j = 0; j < input.Length; j++)
+        {
+            for (int i = 0; i < input[j].Length / 2; i++)
+            {
+                var rand = new Random();
+                int randomLet = rand.Next(0, input[j].Length);
+
+                if (!input[j].Any(char.IsLetter))
+                    break;
+        
+                if (input[j][randomLet] >= 97 && input[j][randomLet] <= 122)
+                {
+                    input[j] = input[j].Remove(randomLet, 1).Insert(randomLet, Convert.ToChar(input[j][randomLet] - 32).ToString());
+                }
+                else
+                {
+                    i--;
+                }
+            }
+        }
+
+        string res = "";
+        
+        foreach (var VARIABLE in input)
+        {
+            res += VARIABLE + " ";
+        }
+        changed.Add(res);
+    }
+
+}
